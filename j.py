@@ -31,6 +31,7 @@ class J:
         return self
 
     def __str__(self):
+        """Generate a colored output string"""
         if self.data:
             formatted_json = json.dumps(self.data, sort_keys=True, indent=self.indent)
             colorful_json = highlight(
@@ -42,6 +43,7 @@ class J:
         return str(self)
 
     def __repr__(self):
+        """Generate an informative representation of the object"""
         if self.input_path:
             return "<J(input_path={})>".format(self.input_path)
         if self.output_path:

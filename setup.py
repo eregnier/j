@@ -1,10 +1,18 @@
 from setuptools import setup
+from os import path
+
+cd = path.abspath(path.dirname(__file__))
+with open(path.join(cd, "README.md"), encoding="utf-8") as f:
+    long_description = f.read()
+
 
 setup(
     name="jshort",
-    version="1.0.0",
+    version="1.0.6",
     py_modules=["jshort"],
     description="Json shorthand for python",
+    long_description_content_type="text/markdown",
+    long_description=long_description,
     author="Eric Régnier",
     author_email="utopman@gmail.com",
     license="MIT",

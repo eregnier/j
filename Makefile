@@ -1,12 +1,11 @@
 .PHONY: build push clean deploy
 
 build:
-	python3 setup.py sdist
-	python3 setup.py bdist_wheel
+	pipenv run python setup.py sdist
+	pipenv run python setup.py bdist_wheel
 
 push: build
-	python3 setup.py sdist upload
-	python3 setup.py bdist_wheel upload
+	pipenv run twine upload dist/*
 
 clean:
 	rm -rf build dist q.egg-info
