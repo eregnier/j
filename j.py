@@ -4,6 +4,46 @@ from pygments import highlight, lexers, formatters
 from jsonpath_ng import jsonpath, parse
 
 
+class Jobj:
+    def __init__(self, data):
+        self._data = data
+
+    def __getattr__(self, key):
+        return Jobj(self._data.get(key))
+
+    def __setitem__(self, key, value):
+        try:
+            json.dumps(value)
+            self._data[key] = value
+        except Exception:
+            print("Unable to serialize value to json")
+
+    def __getitem__(self, index):
+        try:
+            return self._data[index]
+        except Exception:
+            return None
+
+    def __repr__(self):
+        return f"<{str(self._data)[:20]}>"
+
+    def __str__(self):
+        """Generate a colored output string"""
+        formatted_json = json.dumps(self._data, sort_keys=True, indent=2)
+        colorful_json = highlight(
+            formatted_json, lexers.JsonLexer(), formatters.TerminalFormatter()
+        )
+        return colorful_json
+
+    @property
+    def d_(self):
+        return self._data
+
+    @property
+    def data_(self):
+        return self.d_
+
+
 class J:
     def __call__(
         self,
@@ -48,6 +88,7 @@ class J:
             return "<J(input_path={})>".format(self.input_path)
         if self.output_path:
             return "<J(output_path={})>".format(self.output_path)
+        return self.obj.__repr__()
 
     def prt(self):
         print(self)
@@ -72,7 +113,12 @@ class J:
         except Exception:
             return None
 
+    @property
+    def obj(self):
+        return Jobj(self.d)
+
 
 # Install the J() object in sys.modules so that "import j" gives a callable j.
 sys.modules["j"] = J()
+sys.modules["Jobj"] = Jobj
 

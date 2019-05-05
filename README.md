@@ -62,4 +62,34 @@ Have a look at https://pypi.org/project/jsonpath-ng/ for more about json travers
 
 If only one result is returned from filtering, the path method returns only the result otherwise it is a list of results.
 
+# Json as object
+
+It is possible to manipulate json in j instance as a python object. Try the following:
+
+```python
+o = j(d={'a': {'b': 1}}).obj
+
+#raw data
+o.data_
+#{'a': {'b': 1}}
+
+#pretty print it
+print(o)
+#dumps with syntax coloration the json content
+
+o.c
+#None
+
+o.a
+#{'b': 1}
+
+o.a.b
+#1
+
+o.a['test'] = 1
+print(o.d_)
+#{'a': {'b': 1}, 'test': 1}
+
+```
+
 Enjoy.
