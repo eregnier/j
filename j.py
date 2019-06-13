@@ -1,5 +1,5 @@
 import sys
-import json
+import ujson
 from pygments import highlight, lexers, formatters
 from jsonpath_ng import jsonpath, parse
 
@@ -13,7 +13,7 @@ class Jobj:
 
     def __setitem__(self, key, value):
         try:
-            json.dumps(value)
+            ujson.dumps(value)
             self._data[key] = value
         except Exception:
             print("Unable to serialize value to json")
@@ -29,7 +29,7 @@ class Jobj:
 
     def __str__(self):
         """Generate a colored output string"""
-        formatted_json = json.dumps(self._data, sort_keys=True, indent=2)
+        formatted_json = ujson.dumps(self._data, sort_keys=True, indent=2)
         colorful_json = highlight(
             formatted_json, lexers.JsonLexer(), formatters.TerminalFormatter()
         )
@@ -62,18 +62,18 @@ class J:
 
         if self.data and self.output_path:
             with open(self.output_path, "w") as f:
-                f.write(json.dumps(self.data, indent=indent))
+                f.write(ujson.dumps(self.data, indent=indent))
 
         if self.input_path:
             with open(self.input_path) as f:
-                self.data = json.load(f)
+                self.data = ujson.load(f)
 
         return self
 
     def __str__(self):
         """Generate a colored output string"""
         if self.data:
-            formatted_json = json.dumps(self.data, sort_keys=True, indent=self.indent)
+            formatted_json = ujson.dumps(self.data, sort_keys=True, indent=self.indent)
             colorful_json = highlight(
                 formatted_json, lexers.JsonLexer(), formatters.TerminalFormatter()
             )

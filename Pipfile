@@ -12,6 +12,7 @@ twine = "*"
 [packages]
 pygments = "*"
 jsonpath-ng = "*"
+ujson = "*"
 
 [requires]
 python_version = "3.6"

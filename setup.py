@@ -8,7 +8,7 @@ with open(path.join(cd, "README.md"), encoding="utf-8") as f:
 
 setup(
     name="jshort",
-    version="1.1.1",
+    version="1.1.2",
     py_modules=["j"],
     description="Json shorthand for python",
     long_description_content_type="text/markdown",
