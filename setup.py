@@ -8,7 +8,7 @@ with open(path.join(cd, "README.md"), encoding="utf-8") as f:
 
 setup(
     name="jshort",
-    version="1.1.2",
+    version="1.1.3",
     py_modules=["j"],
     description="Json shorthand for python",
     long_description_content_type="text/markdown",
@@ -16,7 +16,7 @@ setup(
     author="Eric Régnier",
     author_email="utopman@gmail.com",
     license="MIT",
-    install_requires=["pygments", "jsonpath-ng"],
+    install_requires=["pygments", "jsonpath-ng", "usjon"],
     classifiers=[
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
